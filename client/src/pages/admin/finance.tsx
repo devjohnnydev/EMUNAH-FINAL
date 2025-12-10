@@ -1,7 +1,7 @@
 import AdminLayout from "@/components/admin-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, DollarSign, Download } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, DollarSign, Download, Printer } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
 
 const transactions = [
   { id: "TRX-9981", desc: "Pagamento Pedido #1001", type: "income", date: "Hoje", amount: "R$ 1.250,00", status: "Confirmado" },
@@ -20,6 +21,15 @@ const transactions = [
 ];
 
 export default function AdminFinance() {
+  const { toast } = useToast();
+
+  const handleExport = () => {
+    toast({
+      title: "Relatório gerado",
+      description: "O download do arquivo financeiro.csv foi iniciado."
+    });
+  };
+
   return (
     <AdminLayout title="Financeiro">
       <div className="flex justify-between items-center mb-6">
@@ -27,7 +37,7 @@ export default function AdminFinance() {
           <h2 className="text-2xl font-bold tracking-tight">Controle Financeiro</h2>
           <p className="text-muted-foreground">Fluxo de caixa e transações.</p>
         </div>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-2" onClick={handleExport}>
           <Download className="h-4 w-4" /> Exportar Relatório
         </Button>
       </div>

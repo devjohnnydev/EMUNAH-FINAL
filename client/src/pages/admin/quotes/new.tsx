@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2, Printer, Save, Send, RefreshCw, QrCode } from "lucide-react";
-import { useState, useRef } from "react";
+import { Plus, Trash2, Printer, Save, Send, RefreshCw, QrCode, ShoppingBag } from "lucide-react";
+import { useState } from "react";
 import logoImg from '@assets/generated_images/minimalist_leaf_e_logo_for_emunhah.png';
 import qrCodeImg from '@assets/generated_images/qr_code_for_pix_payment.png';
 import { formatPrice } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 
 const bibleVerses = [
   "Tudo posso naquele que me fortalece. - Filipenses 4:13",
@@ -35,6 +37,8 @@ export default function NewQuote() {
   ]);
   const [randomVerse, setRandomVerse] = useState(bibleVerses[0]);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const addItem = () => {
     setItems([...items, { id: Date.now(), description: "", quantity: 1, unitPrice: 0 }]);
@@ -51,11 +55,53 @@ export default function NewQuote() {
   };
 
   const subtotal = items.reduce((acc, item) => acc + (item.quantity * item.unitPrice), 0);
-  const total = subtotal; // Can add discount logic later
+  const total = subtotal;
 
   const handleGenerateVerse = () => {
     const randomIndex = Math.floor(Math.random() * bibleVerses.length);
     setRandomVerse(bibleVerses[randomIndex]);
+  };
+
+  const handleSave = () => {
+    if (!clientName) {
+      toast({
+        title: "Erro ao salvar",
+        description: "Por favor, preencha o nome do cliente.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    toast({
+      title: "Cotação Salva!",
+      description: `Orçamento para ${clientName} foi salvo com sucesso.`,
+    });
+    // In a real app, this would save to the DB
+    setIsPreviewMode(true);
+  };
+
+  const handleWhatsApp = () => {
+    if (!clientPhone) {
+      toast({
+        title: "Telefone não informado",
+        description: "Preencha o telefone para enviar via WhatsApp.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const itemsList = items.map(i => `- ${i.quantity}x ${i.description}: ${formatPrice(i.unitPrice * i.quantity)}`).join('%0A');
+    const message = `*Olá, ${clientName}!*%0A%0AAqui está seu orçamento da EMUNAH:%0A%0A${itemsList}%0A%0A*Total: ${formatPrice(total)}*%0A%0APagamento via PIX.%0A"${randomVerse}"`;
+    
+    window.open(`https://wa.me/55${clientPhone.replace(/\D/g, '')}?text=${message}`, '_blank');
+  };
+
+  const handleCreateOrder = () => {
+    toast({
+      title: "Pedido Gerado!",
+      description: `O orçamento #${Math.floor(Math.random() * 10000)} foi convertido em pedido.`,
+    });
+    setLocation("/admin/orders");
   };
 
   if (isPreviewMode) {
@@ -65,11 +111,14 @@ export default function NewQuote() {
           <div className="flex justify-between mb-6 print:hidden">
             <Button variant="outline" onClick={() => setIsPreviewMode(false)}>Voltar para Edição</Button>
             <div className="flex gap-2">
-              <Button onClick={() => window.print()} className="gap-2">
-                <Printer className="h-4 w-4" /> Imprimir / PDF
+              <Button onClick={() => window.print()} variant="outline" className="gap-2">
+                <Printer className="h-4 w-4" /> Imprimir
               </Button>
-              <Button className="gap-2" variant="secondary">
+              <Button onClick={handleWhatsApp} className="gap-2 bg-green-600 hover:bg-green-700 text-white">
                 <Send className="h-4 w-4" /> Enviar WhatsApp
+              </Button>
+              <Button onClick={handleCreateOrder} className="gap-2">
+                <ShoppingBag className="h-4 w-4" /> Gerar Pedido
               </Button>
             </div>
           </div>
@@ -294,7 +343,7 @@ export default function NewQuote() {
                   <Button variant="outline" className="w-full" onClick={() => setIsPreviewMode(true)}>
                     Visualizar
                   </Button>
-                  <Button className="w-full">
+                  <Button className="w-full" onClick={handleSave}>
                     <Save className="h-4 w-4 mr-2" /> Salvar
                   </Button>
                 </div>

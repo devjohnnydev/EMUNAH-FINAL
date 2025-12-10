@@ -17,8 +17,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
-const suppliers = [
+const initialSuppliers = [
   { id: 1, name: "Tecidos Premium LTDA", category: "Tecidos", rating: 5, status: "Ativo", contact: "Roberto" },
   { id: 2, name: "Estamparia Rápida", category: "Serviço", rating: 4, status: "Ativo", contact: "Fernanda" },
   { id: 3, name: "Embalagens & Cia", category: "Embalagem", rating: 5, status: "Ativo", contact: "Ricardo" },
@@ -26,6 +40,27 @@ const suppliers = [
 ];
 
 export default function AdminSuppliers() {
+  const [suppliers, setSuppliers] = useState(initialSuppliers);
+  const [open, setOpen] = useState(false);
+  const { toast } = useToast();
+  const [newSupplier, setNewSupplier] = useState({ name: "", category: "", contact: "" });
+
+  const handleCreateSupplier = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuppliers([...suppliers, { 
+      id: Date.now(), 
+      ...newSupplier, 
+      rating: 5, 
+      status: "Ativo" 
+    }]);
+    setOpen(false);
+    setNewSupplier({ name: "", category: "", contact: "" });
+    toast({
+      title: "Fornecedor cadastrado",
+      description: `${newSupplier.name} foi adicionado com sucesso.`
+    });
+  };
+
   return (
     <AdminLayout title="Fornecedores">
       <div className="flex justify-between items-center mb-6">
@@ -33,9 +68,55 @@ export default function AdminSuppliers() {
           <h2 className="text-2xl font-bold tracking-tight">Fornecedores</h2>
           <p className="text-muted-foreground">Gestão de parceiros e fornecedores de matéria-prima.</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" /> Novo Fornecedor
-        </Button>
+        
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button className="gap-2">
+              <Plus className="h-4 w-4" /> Novo Fornecedor
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Cadastrar Fornecedor</DialogTitle>
+              <DialogDescription>Adicione um novo parceiro comercial.</DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleCreateSupplier} className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label>Nome da Empresa</Label>
+                <Input 
+                  value={newSupplier.name} 
+                  onChange={e => setNewSupplier({...newSupplier, name: e.target.value})} 
+                  required 
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Categoria</Label>
+                <Select onValueChange={val => setNewSupplier({...newSupplier, category: val})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Tecidos">Tecidos</SelectItem>
+                    <SelectItem value="Serviço">Serviço</SelectItem>
+                    <SelectItem value="Embalagem">Embalagem</SelectItem>
+                    <SelectItem value="Outros">Outros</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Nome do Contato</Label>
+                <Input 
+                  value={newSupplier.contact} 
+                  onChange={e => setNewSupplier({...newSupplier, contact: e.target.value})} 
+                  required 
+                />
+              </div>
+              <DialogFooter>
+                <Button type="submit">Salvar Fornecedor</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <Card>
