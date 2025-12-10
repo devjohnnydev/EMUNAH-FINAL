@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import logoImg from '@assets/generated_images/minimalist_leaf_e_logo_for_emunhah.png';
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
@@ -40,6 +40,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {link.label}
                   </Link>
                 ))}
+                <div className="h-px bg-border my-2" />
+                <Link href="/admin/login" className="flex items-center gap-2 text-lg font-medium text-muted-foreground hover:text-primary">
+                  <Lock className="h-4 w-4" />
+                  Área Restrita
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>
@@ -63,17 +68,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* Cart Icon */}
-          <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {itemCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-primary text-primary-foreground rounded-full">
-                  {itemCount}
-                </Badge>
-              )}
-            </Button>
-          </Link>
+          {/* Cart Icon & Admin Link */}
+          <div className="flex items-center gap-2">
+            <Link href="/cart">
+              <Button variant="ghost" size="icon" className="relative">
+                <ShoppingCart className="h-5 w-5" />
+                {itemCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-primary text-primary-foreground rounded-full">
+                    {itemCount}
+                  </Badge>
+                )}
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -91,6 +98,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/shop" className="hover:text-primary transition-colors">Loja</Link>
             <Link href="/about" className="hover:text-primary transition-colors">Sobre Nós</Link>
             <Link href="/contact" className="hover:text-primary transition-colors">Contato</Link>
+          </div>
+
+          <div className="flex justify-center mb-6">
+            <Link href="/admin/login">
+              <Button variant="outline" size="sm" className="gap-2 text-xs opacity-70 hover:opacity-100">
+                <Lock className="h-3 w-3" />
+                Acesso Sistema
+              </Button>
+            </Link>
           </div>
           
           <p className="text-xs text-muted-foreground/60">

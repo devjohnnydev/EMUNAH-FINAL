@@ -9,6 +9,8 @@ import Shop from "@/pages/shop";
 import ProductPage from "@/pages/product";
 import CartPage from "@/pages/cart";
 import CheckoutPage from "@/pages/checkout";
+import AdminLogin from "@/pages/admin-login";
+import AdminDashboard from "@/pages/admin-dashboard";
 
 function Router() {
   return (
@@ -18,6 +20,8 @@ function Router() {
       <Route path="/product/:slug" component={ProductPage} />
       <Route path="/cart" component={CartPage} />
       <Route path="/checkout" component={CheckoutPage} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
