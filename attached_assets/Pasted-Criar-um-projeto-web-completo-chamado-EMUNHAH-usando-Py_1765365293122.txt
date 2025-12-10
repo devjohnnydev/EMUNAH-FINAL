@@ -1,0 +1,103 @@
+Criar um projeto web completo chamado EMUNHAH usando Python 3 + Flask (sem React). O projeto é uma loja evangélica (cultua a Bíblia) com identidade visual fornecida no PDF PROJETO EMUNAH.pdf (se o PDF estiver disponível no workspace, use-o como referência). Gere o repositório pronto para rodar no Replit, incluindo logo, favicon, cores, templates, CSS, rotas básicas, autenticação e funcionalidades mínimas de e-commerce (catálogo, carrinho em session, checkout que cria pedido no banco local).
+
+Requisitos de design (identidade visual):
+
+Nome da loja: EMUNHAH
+
+Paleta de cores (usar exatamente estes hex):
+
+Borgonha (primária): #520B1B
+
+Areia (secundária): #E5D2C4
+
+Creme suave (complementar): #C5A995
+
+Tipografia: escolha fontes web gratuitas — usar Inter (ou system sans) para texto e Merriweather / serif leve para títulos se fizer sentido.
+
+Logo: crie logo em SVG + PNG (512x512) com as diretrizes:
+
+Símbolo abstrato em forma de folha / E estilizada que remeta a fé/vida (minimalista).
+
+Use borgonha como cor principal do símbolo; detalhes em creme/areia para contraste.
+
+Incluir versão com logotipo (símbolo + texto “EMUNHAH”) e versão só símbolo.
+
+Gerar também favicon (ico e png 32x32) e uma versão transparente.
+
+Mockups: gere 2 mockups básicos (camiseta e caneca) em PNG 1200x800 usando o logo aplicado (apenas imagens de exemplo, não fotorealistas se for complexo — ok usar composição simples com background areia).
+
+Funcionalidades mínimas do sistema (entregável funcional):
+
+Estrutura de projeto Flask pronta para rodar no Replit: run.py, app/ com __init__.py, models.py, routes.py, forms.py, admin.py, templates/, static/ (css, js, uploads).
+
+Banco SQLite por default (configurar SQLALCHEMY_DATABASE_URI para sqlite). Incluir migrations com Flask-Migrate.
+
+Autenticação com Flask-Login (registro, login, logout).
+
+CRUD básico de produtos via painel admin protegido (pelo menos criar/editar/remover produtos). Upload de imagens de produtos para static/uploads.
+
+Páginas públicas: home, loja (/shop), produto (/product/<slug>), carrinho (/cart), checkout (/checkout) — checkout cria Order e OrderItem no DB (sem gateway de pagamento).
+
+Carrinho baseado em session com rotas para adicionar/alterar/remover itens.
+
+Mensagens flash, tratamento de erros e placeholders para imagens e textos.
+
+Template base (base.html) com header (logo + menu) e footer com frase da marca: "EMUNHAH — Vista-se com propósito.".
+
+Arquivos de estilo e front-end:
+
+Criar static/css/style.css com variáveis CSS usando as 3 cores acima e layout responsivo simples (grid para produtos).
+
+Criar static/js/cart.js com funções mínimas (envio de formulários para adicionar ao carrinho).
+
+Usar HTML + CSS + JS puro (sem frameworks JS).
+
+Logo — instruções detalhadas (gerar SVG):
+
+SVG vetorial limpo, caminhos otimizados, nome do arquivo emunahh-logo.svg.
+
+Versões geradas: emunahh-logo.svg, emunahh-logo-512.png, emunahh-symbol-512.png, favicon-32.png, favicon.ico.
+
+Nome das fontes usadas no SVG ou converter texto em caminhos para evitar dependências.
+
+Scripts e automação:
+
+requirements.txt com ao menos: Flask, Flask-SQLAlchemy, Flask-Migrate, Flask-Login, Flask-WTF, python-dotenv, Pillow.
+
+run.py com app.run(host='0.0.0.0', port=3000) (compatível Replit).
+
+Procfile opcional para deploy (web: python run.py).
+
+Script de inicialização setup.sh que cria venv, instala deps, inicializa migrations e cria pasta static/uploads.
+
+README.md contendo:
+
+Descrição do projeto, instruções de instalação (passo a passo), como criar admin e como subir no Replit.
+
+Comandos para criar usuário admin via flask shell.
+
+Boas práticas e testes:
+
+Garante que o app roda no Replit: comando python run.py deve iniciar e mostrar a página inicial em 0.0.0.0:3000.
+
+Incluir rota /health que retorna {"status":"ok"} para checagem.
+
+Entrega esperada no workspace do Replit:
+
+Todos os arquivos do projeto (código, templates, static, assets do logo, README).
+
+Imagens do logo em SVG/PNG/ICO e dois mockups PNG.
+
+requirements.txt, Procfile (se necessário), setup.sh.
+
+Um commit inicial e um breve log (mensagem de commit).
+
+Observações finais:
+
+Não use React. Use apenas Python/Flask, HTML, CSS e JavaScript simples.
+
+Se o PDF PROJETO EMUNAH.pdf estiver no workspace, use-o para extrair tipografia, palavras-chave e eventuais textos (slogan, missão) e aplique onde couber (ex.: descrição da loja na home, footer).
+
+Comente rapidamente no final do commit quais rotas e arquivos principais foram criados e como testar (URLs de validação).
+
+Prioridade: gerar um projeto funcional e esteticamente coerente com a paleta acima e com logo vetorial — arquivos finais prontos para rodar no Replit e enviar link público. Obrigatório: emunahh-logo.svg + emunahh-logo-512.png.
