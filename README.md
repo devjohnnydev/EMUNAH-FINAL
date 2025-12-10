@@ -1,10 +1,10 @@
-# EMUNHAH - Loja Evangélica
+# EMUNAH - Loja Evangélica
 
 Uma loja virtual moderna para roupas e acessórios que expressam a fé com elegância e propósito.
 
 ## Sobre o Projeto
 
-EMUNHAH (do hebraico "fé" ou "fidelidade") é uma plataforma de e-commerce voltada para o público evangélico, oferecendo produtos de qualidade que celebram a fé cristã de forma elegante e minimalista.
+EMUNAH (do hebraico "fé" ou "fidelidade") é uma plataforma de e-commerce voltada para o público evangélico, oferecendo produtos de qualidade que celebram a fé cristã de forma elegante e minimalista.
 
 ### Slogan
 *"Fé que se veste."* / *"Vista-se com propósito."*
@@ -135,7 +135,7 @@ A aplicação está configurada para deploy na plataforma Replit com:
 
 ## Licença
 
-Este projeto é proprietário e todos os direitos são reservados à EMUNHAH.
+Este projeto é proprietário e todos os direitos são reservados à EMUNAH.
 
 ---
 

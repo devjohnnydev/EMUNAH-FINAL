@@ -31,7 +31,7 @@ export default function Home() {
             Fé que se veste.
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-            EMUNHAH traz roupas e acessórios minimalistas que expressam sua fé com elegância e propósito.
+            EMUNAH traz roupas e acessórios minimalistas que expressam sua fé com elegância e propósito.
           </p>
           <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
             <Link href="/shop">
@@ -69,7 +69,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <h2 className="font-serif text-4xl font-bold text-primary mb-6">Nossa Missão</h2>
           <p className="text-lg text-foreground/80 leading-relaxed">
-            "EMUNHAH" significa fé, firmeza e verdade. Acreditamos que o que vestimos pode ser uma expressão silenciosa, porém poderosa, de quem somos e no que cremos. Cada peça é criada para lembrar você do seu propósito.
+            "EMUNAH" significa fé, firmeza e verdade. Acreditamos que o que vestimos pode ser uma expressão silenciosa, porém poderosa, de quem somos e no que cremos. Cada peça é criada para lembrar você do seu propósito.
           </p>
         </div>
       </section>

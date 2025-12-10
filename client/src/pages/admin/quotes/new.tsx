@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import logoImg from '@assets/generated_images/minimalist_leaf_e_logo_for_emunhah.png';
-import qrCodeImg from '@assets/generated_images/qr_code_for_pix_payment.png';
+import qrCodeImg from '@assets/qrcode-pix_1765377120098.png';
 import { formatPrice } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";

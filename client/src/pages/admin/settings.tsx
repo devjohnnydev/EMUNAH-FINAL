@@ -29,7 +29,7 @@ export default function AdminSettings() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Nome da Loja</Label>
-                    <Input defaultValue="EMUNHAH" />
+                    <Input defaultValue="EMUNAH" />
                   </div>
                   <div className="space-y-2">
                     <Label>Email de Contato</Label>

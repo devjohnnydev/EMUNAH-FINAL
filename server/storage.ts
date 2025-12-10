@@ -53,10 +53,10 @@ export class DatabaseStorage implements IStorage {
 
       const initialProducts: InsertProduct[] = [
       {
-        name: 'Camiseta EMUNHAH Básica',
-        slug: 'camiseta-emunhah-basica',
+        name: 'Camiseta EMUNAH Básica',
+        slug: 'camiseta-emunah-basica',
         price: '89.90',
-        description: 'Camiseta de algodão premium com o logo minimalista da EMUNHAH. Conforto e propósito em uma peça única.',
+        description: 'Camiseta de algodão premium com o logo minimalista da EMUNAH. Conforto e propósito em uma peça única.',
         category: 'Roupas',
         image: '/generated_images/t-shirt_mockup_with_logo.png',
         stock: 50,

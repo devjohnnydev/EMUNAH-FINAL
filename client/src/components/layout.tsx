@@ -51,8 +51,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <img src={logoImg} alt="EMUNHAH Logo" className="h-8 w-8 object-contain" />
-            <span className="font-serif font-bold text-xl tracking-tight text-primary">EMUNHAH</span>
+            <img src={logoImg} alt="EMUNAH Logo" className="h-8 w-8 object-contain" />
+            <span className="font-serif font-bold text-xl tracking-tight text-primary">EMUNAH</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -90,8 +90,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <footer className="bg-muted py-12 border-t mt-auto">
         <div className="container mx-auto px-4 text-center">
-          <img src={logoImg} alt="EMUNHAH Logo" className="h-12 w-12 object-contain mx-auto mb-6 opacity-80" />
-          <h3 className="font-serif text-2xl font-bold text-primary mb-2">EMUNHAH</h3>
+          <img src={logoImg} alt="EMUNAH Logo" className="h-12 w-12 object-contain mx-auto mb-6 opacity-80" />
+          <h3 className="font-serif text-2xl font-bold text-primary mb-2">EMUNAH</h3>
           <p className="text-muted-foreground mb-8 italic">"Vista-se com propósito."</p>
           
           <div className="flex justify-center gap-6 mb-8 text-sm text-muted-foreground">
@@ -110,7 +110,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           
           <p className="text-xs text-muted-foreground/60">
-            © {new Date().getFullYear()} EMUNHAH. Todos os direitos reservados.
+            © {new Date().getFullYear()} EMUNAH. Todos os direitos reservados.
           </p>
         </div>
       </footer>

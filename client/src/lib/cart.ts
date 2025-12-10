@@ -60,7 +60,7 @@ export const useCart = create<CartStore>()(
       clearCart: () => set({ items: [] }),
     }),
     {
-      name: 'emunhah-cart',
+      name: 'emunah-cart',
     }
   )
 );
