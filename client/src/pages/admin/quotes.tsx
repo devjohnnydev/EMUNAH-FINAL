@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Plus, Download, Send, MoreHorizontal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "wouter";
 import {
   Table,
   TableBody,
@@ -35,9 +36,11 @@ export default function AdminQuotes() {
           <h2 className="text-2xl font-bold tracking-tight">Gerenciar Cotações</h2>
           <p className="text-muted-foreground">Crie e gerencie orçamentos para seus clientes.</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" /> Nova Cotação
-        </Button>
+        <Link href="/admin/quotes/new">
+          <Button className="gap-2">
+            <Plus className="h-4 w-4" /> Nova Cotação
+          </Button>
+        </Link>
       </div>
 
       <Card>
