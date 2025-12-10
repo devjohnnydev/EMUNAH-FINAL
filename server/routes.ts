@@ -5,6 +5,7 @@ import { insertProductSchema, insertClientSchema, insertQuoteSchema, insertOrder
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import express from "express";
 
 // Configure multer for file uploads
 const uploadDir = path.join(process.cwd(), 'uploads', 'products');
@@ -41,6 +42,10 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
   
+  // Serve static files for product images
+  app.use('/generated_images', express.static(path.join(process.cwd(), 'attached_assets', 'generated_images')));
+  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
   // Products API
   app.get("/api/products", async (req, res) => {
     try {
@@ -307,10 +312,6 @@ export async function registerRoutes(
       res.status(500).json({ error: error.message || 'Erro ao fazer upload da imagem' });
     }
   });
-
-  // Serve uploaded files
-  const express = await import('express');
-  app.use('/uploads', express.default.static(path.join(process.cwd(), 'uploads')));
 
   // Dashboard stats API
   app.get("/api/dashboard/stats", async (req, res) => {
