@@ -65,22 +65,43 @@ export async function registerRoutes(
 
   app.post("/api/products", async (req, res) => {
     try {
-      const validatedData = insertProductSchema.parse(req.body);
-      const product = await storage.createProduct(validatedData);
+      const data = {
+        name: req.body.name,
+        slug: req.body.slug,
+        price: String(req.body.price),
+        description: req.body.description,
+        category: req.body.category,
+        image: req.body.image || '/generated_images/t-shirt_mockup_with_logo.png',
+        stock: parseInt(req.body.stock) || 0,
+        active: req.body.active !== false
+      };
+      const product = await storage.createProduct(data);
       res.status(201).json(product);
     } catch (error: any) {
+      console.error('Error creating product:', error);
       res.status(400).json({ error: error.message || "Invalid product data" });
     }
   });
 
   app.patch("/api/products/:id", async (req, res) => {
     try {
-      const updated = await storage.updateProduct(req.params.id, req.body);
+      const data: any = {};
+      if (req.body.name !== undefined) data.name = req.body.name;
+      if (req.body.slug !== undefined) data.slug = req.body.slug;
+      if (req.body.price !== undefined) data.price = String(req.body.price);
+      if (req.body.description !== undefined) data.description = req.body.description;
+      if (req.body.category !== undefined) data.category = req.body.category;
+      if (req.body.image !== undefined) data.image = req.body.image;
+      if (req.body.stock !== undefined) data.stock = parseInt(req.body.stock) || 0;
+      if (req.body.active !== undefined) data.active = req.body.active;
+      
+      const updated = await storage.updateProduct(req.params.id, data);
       if (!updated) {
         return res.status(404).json({ error: "Product not found" });
       }
       res.json(updated);
     } catch (error: any) {
+      console.error('Error updating product:', error);
       res.status(400).json({ error: error.message || "Failed to update product" });
     }
   });
