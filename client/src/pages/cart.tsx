@@ -9,8 +9,8 @@ import { formatPrice } from "@/lib/utils";
 export default function CartPage() {
   const { items, removeItem, updateQuantity } = useCart();
   
-  const subtotal = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const shipping = 25.00; // Fixed shipping for mock
+  const subtotal = items.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+  const shipping = 25.00;
   const total = subtotal + shipping;
 
   if (items.length === 0) {
@@ -50,7 +50,7 @@ export default function CartPage() {
                         </Link>
                       </h3>
                       <p className="ml-4">
-                        {formatPrice(item.price * item.quantity)}
+                        {formatPrice(parseFloat(item.price) * item.quantity)}
                       </p>
                     </div>
                     <p className="mt-1 text-sm text-muted-foreground">{item.category}</p>
