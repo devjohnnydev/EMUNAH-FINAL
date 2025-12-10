@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import logoImg from '@assets/image_1765371462326.png';
+import logoImg from '@assets/logoemunahpng_1765373009546.png';
 import { Lock } from "lucide-react";
 
 export default function AdminLogin() {
