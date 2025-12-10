@@ -288,7 +288,8 @@ export async function registerRoutes(
   });
 
   // Serve uploaded files
-  app.use('/uploads', (await import('express')).default.static(path.join(process.cwd(), 'uploads')));
+  const express = await import('express');
+  app.use('/uploads', express.default.static(path.join(process.cwd(), 'uploads')));
 
   // Dashboard stats API
   app.get("/api/dashboard/stats", async (req, res) => {
