@@ -1,13 +1,20 @@
 import Layout from "@/components/layout";
 import ProductCard from "@/components/product-card";
-import { products } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import heroBg from '@assets/generated_images/t-shirt_mockup_with_logo.png';
+import { useQuery } from "@tanstack/react-query";
+import type { Product } from "@shared/schema";
 
 export default function Home() {
-  const featuredProducts = products.slice(0, 3);
+  const { data: products = [] } = useQuery<Product[]>({
+    queryKey: ["/api/products"],
+  });
+
+  const featuredProducts = products
+    .filter(p => p.active)
+    .slice(0, 3);
 
   return (
     <Layout>

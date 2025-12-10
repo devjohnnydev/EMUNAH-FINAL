@@ -30,6 +30,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
+    { icon: Package, label: "Produtos", href: "/admin/products" },
     { icon: FileText, label: "Cotações", href: "/admin/quotes" },
     { icon: ShoppingBag, label: "Pedidos", href: "/admin/orders" },
     { icon: Users, label: "Clientes", href: "/admin/clients" },

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Product } from "@/lib/data";
+import type { Product } from "@shared/schema";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";

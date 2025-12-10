@@ -19,6 +19,7 @@ import AdminSuppliers from "@/pages/admin/suppliers";
 import AdminPrints from "@/pages/admin/prints";
 import AdminFinance from "@/pages/admin/finance";
 import AdminSettings from "@/pages/admin/settings";
+import AdminProducts from "@/pages/admin/products";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
       {/* Admin Routes */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/products" component={AdminProducts} />
       <Route path="/admin/quotes" component={AdminQuotes} />
       <Route path="/admin/quotes/new" component={AdminNewQuote} />
       <Route path="/admin/orders" component={AdminOrders} />
