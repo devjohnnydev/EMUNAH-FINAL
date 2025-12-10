@@ -19,10 +19,6 @@ externalPort = 80
 localPort = 5001
 externalPort = 3000
 
-[[ports]]
-localPort = 40487
-externalPort = 3001
-
 [env]
 PORT = "5000"
 
@@ -48,4 +44,4 @@ args = "npm run dev"
 waitForPort = 5000
 
 [agent]
-mockupState = "MOCKUP"
+mockupState = "FULLSTACK"
