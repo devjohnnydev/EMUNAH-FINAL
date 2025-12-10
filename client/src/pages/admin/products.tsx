@@ -91,7 +91,7 @@ export default function AdminProducts() {
 
   const createMutation = useMutation({
     mutationFn: async (data: any) => {
-      return await apiRequest("/api/products", "POST", data);
+      return await apiRequest("POST", "/api/products", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
@@ -110,7 +110,7 @@ export default function AdminProducts() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: any }) => {
-      return await apiRequest(`/api/products/${id}`, "PATCH", data);
+      return await apiRequest("PATCH", `/api/products/${id}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
@@ -128,7 +128,7 @@ export default function AdminProducts() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return await apiRequest(`/api/products/${id}`, "DELETE");
+      return await apiRequest("DELETE", `/api/products/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
