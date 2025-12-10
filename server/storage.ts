@@ -47,10 +47,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   private async seedInitialData() {
-    const existingProducts = await db.select().from(products).limit(1);
-    if (existingProducts.length > 0) return;
+    try {
+      const existingProducts = await db.select().from(products).limit(1);
+      if (existingProducts.length > 0) return;
 
-    const initialProducts: InsertProduct[] = [
+      const initialProducts: InsertProduct[] = [
       {
         name: 'Camiseta EMUNHAH Básica',
         slug: 'camiseta-emunhah-basica',
@@ -95,6 +96,9 @@ export class DatabaseStorage implements IStorage {
 
     for (const product of initialProducts) {
       await db.insert(products).values(product);
+    }
+    } catch (error) {
+      console.log("Database tables may not exist yet. Run migrations first: npm run db:push");
     }
   }
 
