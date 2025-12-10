@@ -11,6 +11,13 @@ import CartPage from "@/pages/cart";
 import CheckoutPage from "@/pages/checkout";
 import AdminLogin from "@/pages/admin-login";
 import AdminDashboard from "@/pages/admin-dashboard";
+import AdminQuotes from "@/pages/admin/quotes";
+import AdminOrders from "@/pages/admin/orders";
+import AdminClients from "@/pages/admin/clients";
+import AdminSuppliers from "@/pages/admin/suppliers";
+import AdminPrints from "@/pages/admin/prints";
+import AdminFinance from "@/pages/admin/finance";
+import AdminSettings from "@/pages/admin/settings";
 
 function Router() {
   return (
@@ -20,8 +27,18 @@ function Router() {
       <Route path="/product/:slug" component={ProductPage} />
       <Route path="/cart" component={CartPage} />
       <Route path="/checkout" component={CheckoutPage} />
+      
+      {/* Admin Routes */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/quotes" component={AdminQuotes} />
+      <Route path="/admin/orders" component={AdminOrders} />
+      <Route path="/admin/clients" component={AdminClients} />
+      <Route path="/admin/suppliers" component={AdminSuppliers} />
+      <Route path="/admin/prints" component={AdminPrints} />
+      <Route path="/admin/finance" component={AdminFinance} />
+      <Route path="/admin/settings" component={AdminSettings} />
+      
       <Route component={NotFound} />
     </Switch>
   );
