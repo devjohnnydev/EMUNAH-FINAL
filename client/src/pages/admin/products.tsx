@@ -29,8 +29,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Pencil, Trash2, Package } from "lucide-react";
-import { useState } from "react";
+import { Plus, Pencil, Trash2, Package, Upload, Image } from "lucide-react";
+import { useState, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -49,7 +49,41 @@ export default function AdminProducts() {
     stock: 0,
     active: true
   });
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formDataUpload = new FormData();
+    formDataUpload.append('image', file);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro no upload');
+      }
+
+      const result = await response.json();
+      setFormData(prev => ({ ...prev, image: result.url }));
+      toast({ title: "Imagem enviada com sucesso!" });
+    } catch (error) {
+      toast({ 
+        title: "Erro ao enviar imagem", 
+        description: "Tente novamente.",
+        variant: "destructive" 
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
@@ -285,18 +319,61 @@ export default function AdminProducts() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="image">URL da Imagem</Label>
-                  <Input
-                    id="image"
-                    data-testid="input-product-image"
-                    value={formData.image}
-                    onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                    placeholder="/generated_images/produto.png"
-                    required
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Sugestões: /generated_images/t-shirt_mockup_with_logo.png ou /generated_images/mug_mockup_with_logo.png
-                  </p>
+                  <Label>Imagem do Produto</Label>
+                  <div className="flex flex-col gap-3">
+                    {formData.image && (
+                      <div className="relative w-32 h-32 rounded-md overflow-hidden border bg-secondary/20">
+                        <img 
+                          src={formData.image} 
+                          alt="Preview" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleImageUpload}
+                        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                        className="hidden"
+                        data-testid="input-product-image-file"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploading}
+                        className="gap-2"
+                        data-testid="button-upload-image"
+                      >
+                        {isUploading ? (
+                          <>
+                            <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            Enviando...
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="h-4 w-4" />
+                            Enviar Imagem
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="image" className="text-xs text-muted-foreground">Ou insira a URL manualmente:</Label>
+                      <Input
+                        id="image"
+                        data-testid="input-product-image"
+                        value={formData.image}
+                        onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+                        placeholder="/generated_images/produto.png"
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Sugestões de URL: /generated_images/t-shirt_mockup_with_logo.png ou /generated_images/mug_mockup_with_logo.png
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex items-center space-x-2">

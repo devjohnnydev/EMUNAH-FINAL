@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import logoImg from '@assets/generated_images/minimalist_leaf_e_logo_for_emunhah.png';
+import logoImg from '@assets/image_1765371462326.png';
 import { Lock } from "lucide-react";
 
 export default function AdminLogin() {
@@ -25,15 +25,13 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center bg-secondary/20">
       <div className="w-full max-w-md px-4">
         <div className="flex justify-center mb-8">
-          <Link href="/">
-            <a className="flex flex-col items-center gap-2 group">
-              <img 
-                src={logoImg} 
-                alt="EMUNAH Logo" 
-                className="h-16 w-16 object-contain transition-transform group-hover:scale-110 duration-500" 
-              />
-              <span className="font-serif font-bold text-2xl tracking-tight text-primary">EMUNAH</span>
-            </a>
+          <Link href="/" className="flex flex-col items-center gap-2 group">
+            <img 
+              src={logoImg} 
+              alt="EMUNAH Logo" 
+              className="h-16 w-16 object-contain transition-transform group-hover:scale-110 duration-500" 
+            />
+            <span className="font-serif font-bold text-2xl tracking-tight text-primary">EMUNAH</span>
           </Link>
         </div>
 
@@ -80,10 +78,8 @@ export default function AdminLogin() {
             </form>
           </CardContent>
           <CardFooter className="flex justify-center border-t p-6 mt-2">
-            <Link href="/">
-              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                Voltar para a Loja
-              </a>
+            <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Voltar para a Loja
             </Link>
           </CardFooter>
         </Card>
