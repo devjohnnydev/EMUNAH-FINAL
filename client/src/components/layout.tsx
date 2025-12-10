@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import logoImg from '@assets/generated_images/minimalist_leaf_e_logo_for_emunhah.png';
+import logoImg from '@assets/image_1765371462326.png';
 import { ShoppingCart, Menu, X, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";

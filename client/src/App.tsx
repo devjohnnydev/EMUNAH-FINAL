@@ -9,6 +9,7 @@ import Shop from "@/pages/shop";
 import ProductPage from "@/pages/product";
 import CartPage from "@/pages/cart";
 import CheckoutPage from "@/pages/checkout";
+import About from "@/pages/about";
 import AdminLogin from "@/pages/admin-login";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminQuotes from "@/pages/admin/quotes";
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/product/:slug" component={ProductPage} />
       <Route path="/cart" component={CartPage} />
       <Route path="/checkout" component={CheckoutPage} />
+      <Route path="/about" component={About} />
       
       {/* Admin Routes */}
       <Route path="/admin/login" component={AdminLogin} />
