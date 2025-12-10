@@ -1,16 +1,28 @@
 import { Link, useLocation } from "wouter";
 import logoImg from '@assets/logoemunahpng_1765373009546.png';
-import { ShoppingCart, Menu, X, Lock } from "lucide-react";
+import { ShoppingCart, Menu, X, Lock, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/lib/cart";
+import { useQuery } from "@tanstack/react-query";
+import type { SiteSettings } from "@shared/schema";
+
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+  </svg>
+);
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const { items } = useCart();
   const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const { data: settings } = useQuery<SiteSettings>({
+    queryKey: ["/api/settings"],
+  });
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -97,8 +109,45 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex justify-center gap-6 mb-8 text-sm text-muted-foreground">
             <Link href="/shop" className="hover:text-primary transition-colors">Loja</Link>
             <Link href="/about" className="hover:text-primary transition-colors">Sobre Nós</Link>
-            <Link href="/contact" className="hover:text-primary transition-colors">Contato</Link>
           </div>
+
+          {(settings?.instagramUrl || settings?.facebookUrl || settings?.tiktokUrl) && (
+            <div className="flex justify-center gap-4 mb-8">
+              {settings?.instagramUrl && (
+                <a
+                  href={settings.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center hover:scale-110 transition-transform"
+                  data-testid="link-instagram"
+                >
+                  <Instagram className="h-5 w-5 text-white" />
+                </a>
+              )}
+              {settings?.facebookUrl && (
+                <a
+                  href={settings.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center hover:scale-110 transition-transform"
+                  data-testid="link-facebook"
+                >
+                  <Facebook className="h-5 w-5 text-white" />
+                </a>
+              )}
+              {settings?.tiktokUrl && (
+                <a
+                  href={settings.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:scale-110 transition-transform"
+                  data-testid="link-tiktok"
+                >
+                  <TikTokIcon className="h-5 w-5 text-white" />
+                </a>
+              )}
+            </div>
+          )}
 
           <div className="flex justify-center mb-6">
             <Link href="/admin/login">

@@ -108,3 +108,23 @@ export const insertOrderSchema = createInsertSchema(orders).omit({
 
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
 export type Order = typeof orders.$inferSelect;
+
+export const siteSettings = pgTable("site_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  storeName: text("store_name").default("EMUNAH"),
+  email: text("email").default("contato@emunah.com"),
+  phone: text("phone").default("(11) 99999-9999"),
+  cnpj: text("cnpj").default("00.000.000/0001-00"),
+  instagramUrl: text("instagram_url"),
+  facebookUrl: text("facebook_url"),
+  tiktokUrl: text("tiktok_url"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertSiteSettingsSchema = createInsertSchema(siteSettings).omit({
+  id: true,
+  updatedAt: true,
+});
+
+export type InsertSiteSettings = z.infer<typeof insertSiteSettingsSchema>;
+export type SiteSettings = typeof siteSettings.$inferSelect;

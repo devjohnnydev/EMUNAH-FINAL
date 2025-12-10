@@ -4,7 +4,8 @@ import {
   type Client, type InsertClient,
   type Quote, type InsertQuote,
   type Order, type InsertOrder,
-  users, products, clients, quotes, orders
+  type SiteSettings, type InsertSiteSettings,
+  users, products, clients, quotes, orders, siteSettings
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte } from "drizzle-orm";
@@ -39,6 +40,9 @@ export interface IStorage {
   createOrder(order: InsertOrder): Promise<Order>;
   updateOrder(id: string, order: Partial<InsertOrder>): Promise<Order | undefined>;
   deleteOrder(id: string): Promise<boolean>;
+
+  getSiteSettings(): Promise<SiteSettings | undefined>;
+  updateSiteSettings(settings: Partial<InsertSiteSettings>): Promise<SiteSettings>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -228,6 +232,29 @@ export class DatabaseStorage implements IStorage {
   async deleteOrder(id: string): Promise<boolean> {
     const result = await db.delete(orders).where(eq(orders.id, id)).returning();
     return result.length > 0;
+  }
+
+  async getSiteSettings(): Promise<SiteSettings | undefined> {
+    const result = await db.select().from(siteSettings).limit(1);
+    if (result.length === 0) {
+      // Create default settings if none exist
+      const newSettings = await db.insert(siteSettings).values({}).returning();
+      return newSettings[0];
+    }
+    return result[0];
+  }
+
+  async updateSiteSettings(updateData: Partial<InsertSiteSettings>): Promise<SiteSettings> {
+    const existing = await this.getSiteSettings();
+    if (existing) {
+      const result = await db.update(siteSettings).set({
+        ...updateData,
+        updatedAt: new Date()
+      }).where(eq(siteSettings.id, existing.id)).returning();
+      return result[0];
+    }
+    const result = await db.insert(siteSettings).values(updateData).returning();
+    return result[0];
   }
 }
 

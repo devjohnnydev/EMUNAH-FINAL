@@ -313,6 +313,25 @@ export async function registerRoutes(
     }
   });
 
+  // Site Settings API
+  app.get("/api/settings", async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings();
+      res.json(settings);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch settings" });
+    }
+  });
+
+  app.patch("/api/settings", async (req, res) => {
+    try {
+      const updated = await storage.updateSiteSettings(req.body);
+      res.json(updated);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message || "Failed to update settings" });
+    }
+  });
+
   // Dashboard stats API
   app.get("/api/dashboard/stats", async (req, res) => {
     try {
